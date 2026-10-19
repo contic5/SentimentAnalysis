@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Prevents Razor compilation and deployment of the entire folder -->
+    <RazorCompile Remove="ExampleCode/**" />
+    <Content Remove="ExampleCode/**" />
+    <Compile Remove="ExampleCode/**/*.cs" />
+  </ItemGroup>
+</Project>

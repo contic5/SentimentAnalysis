@@ -1,0 +1,16 @@
+
+Option 1: Local Pre-trained Transformers (Easiest & Private)
+
+If you want to classify text immediately without configuring Azure or training a model from scratch, you can run a local RoBERTa transformer model using the Kjarni library.
+
+Install the NuGet Package
+dotnet add package Kjarni
+
+The C# Code
+using Kjarni;
+
+// The model downloads on first run, caches locally, and runs entirely on your CPU/GPU
+using var classifier = new Classifier("roberta-sentiment");
+
+var result = classifier.Classify("This library makes C# AI incredibly simple!");
+Console.WriteLine($"Sentiment: {result}"); // Output: positive (98.5%)
