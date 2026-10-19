@@ -1,0 +1,9 @@
+Google Reviews? (Need Web Scraping for more than 5 reviews. I just want an easy to access data source.)
+
+Elden Ring Reviews
+Track sentiment for reviews where certain characters are mentioned (eg. Godrick, Morgott, Malenia, Radahn). Find the average sentiment percents for the mentioned characters.
+
+Example
+90% of the reviews with Morgott in the review are positive.
+70% of reviews with Radahn in the review are positive.
+50% of the reviews with Godskin Duo in the review are positive.
