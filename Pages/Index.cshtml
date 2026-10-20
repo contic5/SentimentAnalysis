@@ -10,14 +10,26 @@
     <table>
     <thead>
     <tr></tr>
+    <th>Id</th>
     <th>Review Text</th>
+    <th>Recommendation</th>
+    <th>Hours Played</th>
+    <th>Helpful</th>
+    <th>Funny</th>
+    <th>Review Date</th>
     </tr>
     </thead>
     <tbody>
     @foreach(Review review in Model.reviewsToDisplay)
     {
         <tr>
+        <th>@review.Id</th>
         <td>@review.ReviewText</td>
+        <td>@review.Reccomendation</td>
+        <td>@review.HoursPlayed</td>
+        <td>@review.Helpful</td>
+        <td>@review.Funny</td>
+        <td>@review.ReviewDate</td>
         </tr>            
     }
     </tbody>

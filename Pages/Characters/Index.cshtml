@@ -1,0 +1,32 @@
+﻿@page
+@using SentimentAnalysis.Models
+@model CharacterModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <h1 class="display-4">Sentiment Analysis by Character</h1>
+    <h2>Total Characters: {@Model.characters.Count()}</h2>
+    <table>
+    <thead>
+    <tr></tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Count</th>
+    <th>Positive Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(Character character in Model.characters)
+    {
+        <tr>
+        <th>@character.Id</th>
+        <td>@character.Name</td>
+        <td>@character.Count</td>
+        <td>@character.PositiveCount</td>
+        </tr>            
+    }
+    </tbody>
+    </table>
+</div>
