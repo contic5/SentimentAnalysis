@@ -23,7 +23,7 @@ public class CharacterModel : PageModel
     public void OnGet(int page=0)
     {
         
-        string filePath = "Data/elden_ring_reviews.xlsx"; // Replace with your actual file path
+        string filePath = "Data/df_eldenRing_short.xlsx"; // Replace with your actual file path
         if(reviews==null||reviews.Count()==0)
         {
             Console.WriteLine("Accessing reviews");

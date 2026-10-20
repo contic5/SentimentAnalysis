@@ -21,7 +21,7 @@ public class IndexModel : PageModel
     public void OnGet(int page=0)
     {
         
-        string filePath = "Data/elden_ring_reviews.xlsx"; // Replace with your actual file path
+        string filePath = "Data/df_eldenRing_very_short.xlsx"; // Replace with your actual file path
         if(reviews==null)
         {
             Console.WriteLine("Accessing reviews");
