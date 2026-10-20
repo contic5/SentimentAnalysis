@@ -15,16 +15,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 public class IndexModel : PageModel
 {
-    public void OnGet()
+    public IEnumerable<Review>? reviews {get; set;}
+    public IEnumerable<Review>? reviewsToDisplay {get; set;}
+
+    public void OnGet(int page=0)
     {
         string filePath = "Data/elden_ring_reviews.xlsx"; // Replace with your actual file path
 
         // This single line reads the sheet and binds it to your model list
-        IEnumerable<Review> reviews = MiniExcel.Query<Review>(filePath);
-
-        foreach (var review in reviews)
+        reviews = MiniExcel.Query<Review>(filePath);
+        reviewsToDisplay=reviews.Skip(10*page).Take(10);
+        foreach (var review in reviewsToDisplay)
         {
-            Console.WriteLine($"{review.Id}");
+            Console.WriteLine($"{review.ReviewText}");
         }
     }
 }
