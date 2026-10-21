@@ -16,7 +16,7 @@ public class Review
     public int Helpful { get; set; }
     public int Funny { get; set; }
 
-    public string? Reccomendation {get; set;}
+    public bool? Reccomendation {get; set;}
 
     public Review()
     {
