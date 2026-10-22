@@ -16,8 +16,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 public class CharacterModel : PageModel
 {
     public IEnumerable<Review>? reviews {get; set;}
-    public IEnumerable<Review>? reviewsToDisplay {get; set;}
-
     public Character[] characters {get; set;}
 
     public void OnGet(int page=0)
@@ -102,14 +100,8 @@ public class CharacterModel : PageModel
         }
         Console.WriteLine($"Total Characters {characters.Count()}");
 
-        reviewsToDisplay=reviews.Skip(10*page).Take(10);
-        foreach (var review in reviewsToDisplay)
-        {
-            //Console.WriteLine($"{review.ReviewText}");
-        }
-
         long end=DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         Console.WriteLine($"Completion Time: {end-start} ms");
-        Console.WriteLine($"Time Per 1000: {(end-start)/(reviews.Count()/1000)}");
+        Console.WriteLine($"Time Per 1000 reviews: {(1000*(end-start))/reviews.Count()}");
     }
 }

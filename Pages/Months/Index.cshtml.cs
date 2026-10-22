@@ -16,8 +16,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 public class MonthModel : PageModel
 {
     public IEnumerable<Review>? reviews {get; set;}
-    public IEnumerable<Review>? reviewsToDisplay {get; set;}
-
     public Character[] characters {get; set;}
 
     public void OnGet(int page=0)
@@ -101,12 +99,6 @@ public class MonthModel : PageModel
             }
         }
         Console.WriteLine($"Total Characters {characters.Count()}");
-
-        reviewsToDisplay=reviews.Skip(10*page).Take(10);
-        foreach (var review in reviewsToDisplay)
-        {
-            //Console.WriteLine($"{review.ReviewText}");
-        }
 
         long end=DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         Console.WriteLine($"Completion Time: {end-start} ms");
