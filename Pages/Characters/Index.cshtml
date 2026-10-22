@@ -28,7 +28,7 @@
         <td>@character.Count</td>
         <td>@character.PositiveCount</td>
         <td>@character.NegativeCount</td>
-        <td>@Math.Round((double) character.PositiveCount/character.Count)%</td>
+        <td>@Math.Round((double) 100*character.PositiveCount/character.Count)%</td>
         </tr>            
     }
     </tbody>

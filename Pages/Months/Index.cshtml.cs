@@ -12,11 +12,12 @@ using SentimentAnalysis.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections;
 
 public class MonthModel : PageModel
 {
+    public List<MonthData> MonthDataArr {get; set;}
     public IEnumerable<Review>? reviews {get; set;}
-    public Character[] characters {get; set;}
 
     public void OnGet(int page=0)
     {
@@ -30,75 +31,45 @@ public class MonthModel : PageModel
             reviews = MiniExcel.Query<Review>(filePath);
         }
 
-        if(characters==null||characters.Count()==0)
+        reviews=reviews.OrderBy(review=>review.ReviewDate);
+        MonthDataArr=[];
+    
+        Console.WriteLine(reviews.GetType().FullName);
+        Review firstReview=reviews.First();
+        DateTime previousMonth=new DateTime(firstReview.ReviewDate.Year,firstReview.ReviewDate.Month,1);
+        MonthData currentMonthData = new MonthData
         {
-            string[] charactersNames = System.IO.File.ReadAllLines("Data/characters.txt");
-            characters=new Character[charactersNames.Length];
-
-            //Tracks which characters have been added
-            OrderedDictionary<string,bool> charactersAdded=new OrderedDictionary<string, bool>();
-
-            //Initialize each character
-            for(int i=0;i<charactersNames.Length;i++)
+            Month = previousMonth
+        };
+        foreach (var review in reviews)
+        {
+            DateTime currentMonth=new DateTime(review.ReviewDate.Year,review.ReviewDate.Month,1);
+            if(currentMonth!=previousMonth)
             {
-                string characterName=charactersNames[i];
+                Console.WriteLine(previousMonth);
+                MonthDataArr.Add(currentMonthData);
+                currentMonthData = new MonthData
+                {
+                    Month=previousMonth
+                };
 
-                //Initialize each dictionary key
-                charactersAdded[characterName]=true;
-
-                characters[i]=new Character();
-                characters[i].Name=characterName;
-                characters[i].Id=i+1;
-                
+                previousMonth=currentMonth;
             }
 
-            //Loop through each review. Previous method was O(r*c) (Total reviews*total characters). 
-            // It is now O(r) (Total reviews)
-
-            int reviewIndex=1;
-            foreach(var review in reviews)
+            currentMonthData.Count+=1;
+            if(review.Reccomendation==true)
             {
-                if((reviewIndex-1)%1000==0)
-                {
-                    Console.WriteLine($"Review {reviewIndex-1}/{reviews.Count()}");
-                }
-                reviewIndex+=1;
-
-                if(review.ReviewText==null)
-                {
-                    continue;
-                }
-
-                //Gets each word in the review
-                string[] words=review.ReviewText.Split(" ");
-    
-                foreach(var word in words)
-                {
-                    int index=charactersAdded.IndexOf(word);
-                    if(index!=-1&&!charactersAdded[word])
-                    {
-                        //Mark that character was added
-                        charactersAdded[word]=true;
-                        characters[index].Count+=1;
-                        if(review.Reccomendation==true)
-                        {
-                            characters[index].PositiveCount+=1;
-                        }
-                        else
-                        {
-                            characters[index].NegativeCount+=1;
-                        }
-                    }
-                }
-
-                //Loop using Ordered Dictionary Key
-                foreach(string characterName in charactersAdded.Keys)
-                {
-                    charactersAdded[characterName]=false;
-                }
+                currentMonthData.PositiveCount+=1;
+            }
+            else
+            {
+                currentMonthData.NegativeCount+=1;
             }
         }
-        Console.WriteLine($"Total Characters {characters.Count()}");
+        Console.WriteLine(previousMonth);
+
+        MonthDataArr.Append(currentMonthData);
+        Console.WriteLine(MonthDataArr.Count);
 
         long end=DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         Console.WriteLine($"Completion Time: {end-start} ms");

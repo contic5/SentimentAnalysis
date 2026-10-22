@@ -7,12 +7,12 @@
 
 <div>
     <h1 class="display-4">Sentiment Analysis by Character</h1>
-    <h2>Total Characters: @Model.characters.Count()</h2>
+    <h2>Total Months: @Model.MonthDataArr.Count</h2>
     <table>
     <thead>
     <tr></tr>
     <th>Id</th>
-    <th>Name</th>
+    <th>Month</th>
     <th>Count</th>
     <th>Positive Reviews</th>
     <th>Negative Reviews</th>
@@ -20,16 +20,16 @@
     </tr>
     </thead>
     <tbody>
-    @foreach(Character character in Model.characters)
+    @foreach(MonthData monthData in Model.MonthDataArr)
     {
         <tr>
-        <th>@character.Id</th>
-        <td>@character.Name</td>
-        <td>@character.Count</td>
-        <td>@character.PositiveCount</td>
-        <td>@character.NegativeCount</td>
-        <td>@Math.Round((double) 100*character.PositiveCount/character.Count)%</td>
-        </tr>            
+        <td>@monthData.Id</td>
+        <td>@monthData.Month</td>
+        <td>@monthData.Count</td>
+        <td>@monthData.PositiveCount</td>
+        <td>@monthData.NegativeCount</td>
+        <td>@Math.Round((double) 100*monthData.PositiveCount/monthData.Count)%</td>
+        </tr>
     }
     </tbody>
     </table>
