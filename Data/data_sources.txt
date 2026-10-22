@@ -1,0 +1,2 @@
+https://www.kaggle.com/datasets/lorenzoshylockl/steam-reviews-of-elden-ring
+https://www.kaggle.com/datasets/mohamedtarek01234/steam-games-reviews-and-rankings

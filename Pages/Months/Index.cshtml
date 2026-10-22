@@ -1,0 +1,36 @@
+﻿@page
+@using SentimentAnalysis.Models
+@model MonthModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <h1 class="display-4">Sentiment Analysis by Character</h1>
+    <h2>Total Months: @Model.MonthDataArr.Count</h2>
+    <table>
+    <thead>
+    <tr></tr>
+    <th>Id</th>
+    <th>Month</th>
+    <th>Count</th>
+    <th>Positive Reviews</th>
+    <th>Negative Reviews</th>
+    <th>Positive Percent</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(MonthData monthData in Model.MonthDataArr)
+    {
+        <tr>
+        <td>@monthData.Id</td>
+        <td>@monthData.Month</td>
+        <td>@monthData.Count</td>
+        <td>@monthData.PositiveCount</td>
+        <td>@monthData.NegativeCount</td>
+        <td>@Math.Round((double) 100*monthData.PositiveCount/monthData.Count)%</td>
+        </tr>
+    }
+    </tbody>
+    </table>
+</div>
