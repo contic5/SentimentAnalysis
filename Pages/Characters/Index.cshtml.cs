@@ -22,7 +22,8 @@ public class CharacterModel : PageModel
 
     public void OnGet(int page=0)
     {
-        
+        long start=DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
         string filePath = "Data/df_eldenRing_very_short.xlsx"; // Replace with your actual file path
         if(reviews==null||reviews.Count()==0)
         {
@@ -75,27 +76,27 @@ public class CharacterModel : PageModel
     
                 foreach(var word in words)
                 {
-                    if (charactersAdded.ContainsKey(word))
+                    int index=charactersAdded.IndexOf(word);
+                    if(index!=-1&&!charactersAdded[word])
                     {
                         //Mark that character was added
                         charactersAdded[word]=true;
-                    }
-                }
-
-                //Loop using Ordered Dictionary Key
-                int index=0;
-                foreach(string characterName in charactersAdded.Keys)
-                {
-                    if(charactersAdded[characterName])
-                    {
                         characters[index].Count+=1;
                         if(review.Reccomendation==true)
                         {
                             characters[index].PositiveCount+=1;
                         }
+                        else
+                        {
+                            characters[index].NegativeCount+=1;
+                        }
                     }
+                }
+
+                //Loop using Ordered Dictionary Key
+                foreach(string characterName in charactersAdded.Keys)
+                {
                     charactersAdded[characterName]=false;
-                    index+=1;
                 }
             }
         }
@@ -106,5 +107,9 @@ public class CharacterModel : PageModel
         {
             //Console.WriteLine($"{review.ReviewText}");
         }
+
+        long end=DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        Console.WriteLine($"Completion Time: {end-start} ms");
+        Console.WriteLine($"Time Per 1000: {(end-start)/(reviews.Count()/1000)}");
     }
 }

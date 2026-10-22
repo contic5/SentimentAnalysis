@@ -10,4 +10,6 @@ public class Character
 
     public int Count {get; set;}
     public int PositiveCount {get; set;}
+
+    public int NegativeCount {get; set;}
 }
