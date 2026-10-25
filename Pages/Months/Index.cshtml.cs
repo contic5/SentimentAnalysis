@@ -39,8 +39,11 @@ public class MonthModel : PageModel
         DateTime previousMonth=new DateTime(firstReview.ReviewDate.Year,firstReview.ReviewDate.Month,1);
         MonthData currentMonthData = new MonthData
         {
-            Month = previousMonth
+            Month = previousMonth,
+            Id=1,
         };
+
+        int curId=2;
         foreach (var review in reviews)
         {
             DateTime currentMonth=new DateTime(review.ReviewDate.Year,review.ReviewDate.Month,1);
@@ -50,8 +53,10 @@ public class MonthModel : PageModel
                 MonthDataArr.Add(currentMonthData);
                 currentMonthData = new MonthData
                 {
-                    Month=previousMonth
+                    Month=previousMonth,
+                    Id=curId
                 };
+                curId+=1;
 
                 previousMonth=currentMonth;
             }
