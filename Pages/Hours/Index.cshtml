@@ -1,0 +1,38 @@
+﻿@page
+@using SentimentAnalysis.Models
+@model HourModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <h1 class="display-4">Sentiment Analysis by Character</h1>
+    <h2>Total Hours: @Model.HourDataArr.Count</h2>
+    <table>
+    <thead>
+    <tr></tr>
+    <th>Id</th>
+    <th>Min Hours</th>
+    <th>Max Hours</th>
+    <th>Count</th>
+    <th>Positive Reviews</th>
+    <th>Negative Reviews</th>
+    <th>Positive Percent</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(HourData hourData in Model.HourDataArr)
+    {
+        <tr>
+        <td>@hourData.Id</td>
+        <td>@hourData.MinHours</td>
+        <td>@hourData.MaxHours</td>
+        <td>@hourData.Count</td>
+        <td>@hourData.PositiveCount</td>
+        <td>@hourData.NegativeCount</td>
+        <td>@Math.Round((double) 100*hourData.PositiveCount/hourData.Count)%</td>
+        </tr>
+    }
+    </tbody>
+    </table>
+</div>

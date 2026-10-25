@@ -11,6 +11,9 @@ public class Review
     public DateTime ReviewDate { get; set; }
     
     public decimal HoursPlayed { get; set; }
+
+    public int HoursPlayedAtReview {get; set;}
+
     public int Helpful { get; set; }
     public int Funny { get; set; }
 
